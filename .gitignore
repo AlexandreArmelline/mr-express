@@ -1,0 +1,12 @@
+# Dependências
+node_modules/
+
+# Chats / cache do assistente
+.deepcraft-chats/
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

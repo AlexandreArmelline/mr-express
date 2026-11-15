@@ -1,0 +1,915 @@
+/* ============================================================ */
+/* BLOCO 1 - VARIÁVEIS E RESET                                  */
+/* ============================================================ */
+:root {
+  /* Cores da marca (extraídas das imagens) */
+  --vermelho: #c8102e;
+  --vermelho-escuro: #a00d24;
+  --azul: #0b2a5b;
+  --azul-claro: #123a7a;
+  --preto: #1a1a1a;
+  --cinza: #555;
+  --cinza-claro: #f4f6fa;
+  --branco: #ffffff;
+  --whatsapp: #25d366;
+  --whatsapp-escuro: #1da851;
+
+  /* Tipografia */
+  --font: 'Montserrat', system-ui, -apple-system, sans-serif;
+
+  /* Layout */
+  --container: 1200px;
+  --radius: 14px;
+  --shadow: 0 10px 30px rgba(11, 42, 91, 0.10);
+  --shadow-lg: 0 20px 50px rgba(11, 42, 91, 0.18);
+  --transition: 0.3s ease;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+
+body {
+  font-family: var(--font);
+  color: var(--preto);
+  background: var(--branco);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section { padding: 90px 0; }
+
+.text-accent { color: var(--vermelho); }
+/* Fim bloco 1 - VARIÁVEIS E RESET */
+
+/* ============================================================ */
+/* BLOCO 2 - COMPONENTES (BOTÕES, TÍTULOS)                      */
+/* ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 26px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.btn--primary {
+  background: var(--vermelho);
+  color: var(--branco);
+  box-shadow: 0 8px 20px rgba(200, 16, 46, 0.30);
+}
+.btn--primary:hover {
+  background: var(--vermelho-escuro);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(200, 16, 46, 0.40);
+}
+
+.btn--outline {
+  background: transparent;
+  color: var(--azul);
+  border: 2px solid var(--azul);
+}
+.btn--outline:hover {
+  background: var(--azul);
+  color: var(--branco);
+  transform: translateY(-2px);
+}
+
+.btn--whatsapp {
+  background: var(--whatsapp);
+  color: var(--branco);
+  box-shadow: 0 8px 20px rgba(37, 211, 102, 0.35);
+}
+.btn--whatsapp:hover {
+  background: var(--whatsapp-escuro);
+  transform: translateY(-2px);
+}
+
+.btn--lg { padding: 16px 34px; font-size: 1.02rem; }
+.btn--block { width: 100%; }
+
+.section__head {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 55px;
+}
+.section__tag {
+  display: inline-block;
+  color: var(--vermelho);
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.section__title {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 800;
+  color: var(--azul);
+  line-height: 1.15;
+  margin-bottom: 14px;
+}
+.section__desc {
+  color: var(--cinza);
+  font-size: 1.05rem;
+}
+/* Fim bloco 2 - COMPONENTES (BOTÕES, TÍTULOS) */
+
+/* ============================================================ */
+/* BLOCO 3 - CABEÇALHO / NAVEGAÇÃO                              */
+/* ============================================================ */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
+  transition: var(--transition);
+}
+.header.scrolled {
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 78px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--vermelho);
+}
+.logo__img {
+  height: 52px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
+.logo__icon { display: flex; color: var(--vermelho); }
+.logo__text {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--azul);
+  letter-spacing: 0.5px;
+}
+.logo__text strong { color: var(--vermelho); }
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 34px;
+}
+.nav__list {
+  display: flex;
+  gap: 30px;
+}
+.nav__link {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--azul);
+  position: relative;
+  padding: 6px 0;
+  transition: var(--transition);
+}
+.nav__link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--vermelho);
+  transition: var(--transition);
+}
+.nav__link:hover { color: var(--vermelho); }
+.nav__link:hover::after { width: 100%; }
+
+.nav__cta { padding: 10px 20px; font-size: 0.9rem; }
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 8px;
+}
+.hamburger span {
+  width: 26px;
+  height: 3px;
+  background: var(--azul);
+  border-radius: 3px;
+  transition: var(--transition);
+}
+.hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+/* Fim bloco 3 - CABEÇALHO / NAVEGAÇÃO */
+
+/* ============================================================ */
+/* BLOCO 4 - HERO                                               */
+/* ============================================================ */
+.hero {
+  position: relative;
+  padding: 150px 0 90px;
+  background: linear-gradient(135deg, #f4f6fa 0%, #e8edf7 100%);
+  overflow: hidden;
+}
+.hero__bg {
+  position: absolute;
+  top: -120px;
+  right: -120px;
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(circle, rgba(200, 16, 46, 0.10), transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.hero__inner {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  gap: 50px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero__badge {
+  display: inline-block;
+  background: var(--azul);
+  color: var(--branco);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 7px 16px;
+  border-radius: 50px;
+  margin-bottom: 22px;
+}
+.hero__title {
+  font-size: clamp(2.1rem, 5vw, 3.4rem);
+  font-weight: 900;
+  color: var(--azul);
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+.hero__subtitle {
+  font-size: 1.12rem;
+  color: var(--cinza);
+  max-width: 480px;
+  margin-bottom: 32px;
+}
+.hero__actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 34px;
+}
+.hero__highlights {
+  display: flex;
+  gap: 26px;
+  flex-wrap: wrap;
+}
+.hero__highlights li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--azul);
+}
+.hero__highlights span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  background: var(--vermelho);
+  color: var(--branco);
+  border-radius: 50%;
+  font-size: 0.75rem;
+}
+
+/* Foto real da frota no hero */
+.hero__visual {
+  display: flex;
+  justify-content: center;
+}
+.hero__photo {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  transform: rotate(-1.5deg);
+  transition: var(--transition);
+  border: 6px solid var(--branco);
+}
+.hero__photo:hover { transform: rotate(0deg) scale(1.02); }
+.hero__photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.hero__photo-badge {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(11, 42, 91, 0.92);
+  color: var(--branco);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 9px 16px;
+  border-radius: 50px;
+  backdrop-filter: blur(4px);
+}
+.hero__photo-badge-dot {
+  width: 9px;
+  height: 9px;
+  background: var(--whatsapp);
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.3);
+  animation: blink 1.8s infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+/* Fim bloco 4 - HERO */
+
+/* ============================================================ */
+/* BLOCO 5 - SERVIÇOS                                           */
+/* ============================================================ */
+.services { background: var(--branco); }
+.services__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+.service-card {
+  background: var(--branco);
+  border: 1px solid #e6ebf3;
+  border-radius: var(--radius);
+  padding: 38px 30px;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--vermelho);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: var(--transition);
+}
+.service-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+  border-color: transparent;
+}
+.service-card:hover::before { transform: scaleX(1); }
+.service-card__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 74px;
+  height: 74px;
+  background: rgba(200, 16, 46, 0.08);
+  color: var(--vermelho);
+  border-radius: 16px;
+  margin-bottom: 22px;
+}
+.service-card__title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--azul);
+  margin-bottom: 12px;
+}
+.service-card__text {
+  color: var(--cinza);
+  font-size: 0.97rem;
+}
+/* Fim bloco 5 - SERVIÇOS */
+
+/* ============================================================ */
+/* BLOCO 6 - SOBRE                                              */
+/* ============================================================ */
+.about { background: var(--cinza-claro); }
+.about__inner {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 60px;
+  align-items: center;
+}
+.about__visual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 340px;
+}
+.about__photo {
+  width: 100%;
+  max-width: 420px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  border: 6px solid var(--branco);
+}
+.about__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+.about__photo:hover img { transform: scale(1.05); }
+.about__stat {
+  position: absolute;
+  bottom: 20px;
+  right: 10px;
+  background: var(--vermelho);
+  color: var(--branco);
+  padding: 20px 28px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+}
+.about__stat strong { display: block; font-size: 1.9rem; font-weight: 900; line-height: 1; }
+.about__stat span { font-size: 0.85rem; font-weight: 600; }
+
+.about__text {
+  color: var(--cinza);
+  font-size: 1.02rem;
+  margin-bottom: 16px;
+}
+.about__list {
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.about__list li {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.about__check {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  background: var(--vermelho);
+  color: var(--branco);
+  border-radius: 50%;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+.about__list strong {
+  display: block;
+  color: var(--azul);
+  font-size: 1.05rem;
+  margin-bottom: 2px;
+}
+.about__list p { color: var(--cinza); font-size: 0.95rem; }
+/* Fim bloco 6 - SOBRE */
+
+/* ============================================================ */
+/* BLOCO 6B - GALERIA / NOSSA FROTA                             */
+/* ============================================================ */
+.gallery { background: var(--branco); }
+.gallery__grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 24px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.gallery__item {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  margin: 0;
+  background: var(--cinza-claro);
+  height: 300px;
+}
+.gallery__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+.gallery__item:hover img { transform: scale(1.06); }
+.gallery__item figcaption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 40px 22px 18px;
+  background: linear-gradient(to top, rgba(11, 42, 91, 0.92), transparent);
+  color: var(--branco);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+/* Fim bloco 6B - GALERIA / NOSSA FROTA */
+
+/* ============================================================ */
+/* BLOCO 7 - COBERTURA                                          */
+/* ============================================================ */
+.coverage { background: var(--branco); }
+.coverage__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+.coverage__item {
+  background: var(--cinza-claro);
+  border-radius: var(--radius);
+  padding: 34px 28px;
+  text-align: center;
+  transition: var(--transition);
+}
+.coverage__item:hover {
+  background: var(--azul);
+  transform: translateY(-6px);
+}
+.coverage__item:hover h3,
+.coverage__item:hover p { color: var(--branco); }
+.coverage__dot {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: var(--vermelho);
+  border-radius: 50%;
+  margin-bottom: 18px;
+  box-shadow: 0 0 0 6px rgba(200, 16, 46, 0.15);
+}
+.coverage__item h3 {
+  color: var(--azul);
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+  transition: var(--transition);
+}
+.coverage__item p {
+  color: var(--cinza);
+  font-size: 0.95rem;
+  transition: var(--transition);
+}
+/* Fim bloco 7 - COBERTURA */
+
+/* ============================================================ */
+/* BLOCO 8 - CTA                                                */
+/* ============================================================ */
+.cta {
+  background: linear-gradient(135deg, var(--azul), var(--azul-claro));
+  padding: 70px 0;
+  position: relative;
+  overflow: hidden;
+}
+.cta::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(200, 16, 46, 0.35), transparent 70%);
+  border-radius: 50%;
+}
+.cta__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  position: relative;
+  z-index: 1;
+  flex-wrap: wrap;
+}
+.cta__title {
+  color: var(--branco);
+  font-size: clamp(1.6rem, 3.5vw, 2.3rem);
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+.cta__text {
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 520px;
+  font-size: 1.02rem;
+}
+/* Fim bloco 8 - CTA */
+
+/* ============================================================ */
+/* BLOCO 9 - CONTATO                                            */
+/* ============================================================ */
+.contact { background: var(--cinza-claro); }
+.contact__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+  align-items: stretch;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+.contact__card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  background: var(--branco);
+  border-radius: 16px;
+  padding: 30px 24px;
+  box-shadow: var(--shadow);
+  border-top: 4px solid var(--vermelho);
+  transition: var(--transition);
+}
+.contact__card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+}
+.contact__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 10px;
+  background: rgba(214, 40, 40, 0.1);
+  color: var(--vermelho);
+  border-radius: 14px;
+}
+.contact__title {
+  color: var(--azul);
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.contact__link,
+.contact__text {
+  display: block;
+  color: var(--cinza);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  transition: var(--transition);
+  word-break: break-word;
+}
+.contact__link:hover { color: var(--vermelho); }
+.contact__link--break { font-size: 0.9rem; }
+.contact__id {
+  font-size: 0.82rem;
+  color: #8a8f98;
+  margin-top: 4px;
+}
+/* Card de destaque - WhatsApp */
+.contact__card--destaque {
+  background: var(--azul);
+  border-top-color: #25d366;
+}
+.contact__card--destaque .contact__icon {
+  background: rgba(37, 211, 102, 0.18);
+  color: #25d366;
+}
+.contact__card--destaque .contact__title { color: var(--branco); }
+.contact__card--destaque .contact__text { color: rgba(255, 255, 255, 0.8); }
+.contact__btn {
+  margin-top: auto;
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+}
+/* Fim bloco 9 - CONTATO */
+
+/* ============================================================ */
+/* BLOCO 10 - RODAPÉ                                            */
+/* ============================================================ */
+.footer {
+  background: var(--azul);
+  color: rgba(255, 255, 255, 0.8);
+  padding-top: 60px;
+}
+.footer__inner {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 40px;
+  padding-bottom: 50px;
+}
+.footer__brand .logo__text {
+  color: var(--branco);
+  font-size: 1.4rem;
+  display: inline-block;
+  margin-bottom: 14px;
+}
+.footer__brand .logo__text strong { color: var(--vermelho); }
+.footer__logo {
+  height: 60px;
+  width: auto;
+  display: block;
+  margin-bottom: 16px;
+  background: #fff;
+  padding: 8px 14px;
+  border-radius: 10px;
+  object-fit: contain;
+}
+.footer__brand p { font-size: 0.92rem; line-height: 1.7; }
+.footer__col h4 {
+  color: var(--branco);
+  font-size: 1rem;
+  margin-bottom: 16px;
+}
+.footer__col ul { display: flex; flex-direction: column; gap: 10px; }
+.footer__col a,
+.footer__col p {
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.75);
+  transition: var(--transition);
+}
+.footer__col a:hover { color: var(--vermelho); }
+.footer__bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 22px 0;
+  text-align: center;
+  font-size: 0.85rem;
+}
+/* Fim bloco 10 - RODAPÉ */
+
+/* ============================================================ */
+/* BLOCO 11 - BOTÃO FLUTUANTE WHATSAPP                          */
+/* ============================================================ */
+.whatsapp-float {
+  position: fixed;
+  bottom: 26px;
+  right: 26px;
+  width: 60px;
+  height: 60px;
+  background: var(--whatsapp);
+  color: var(--branco);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.45);
+  z-index: 999;
+  transition: var(--transition);
+  animation: pulse 2.5s infinite;
+}
+.whatsapp-float:hover {
+  background: var(--whatsapp-escuro);
+  transform: scale(1.1);
+}
+@keyframes pulse {
+  0% { box-shadow: 0 8px 24px rgba(37, 211, 102, 0.45), 0 0 0 0 rgba(37, 211, 102, 0.5); }
+  70% { box-shadow: 0 8px 24px rgba(37, 211, 102, 0.45), 0 0 0 16px rgba(37, 211, 102, 0); }
+  100% { box-shadow: 0 8px 24px rgba(37, 211, 102, 0.45), 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+/* Fim bloco 11 - BOTÃO FLUTUANTE WHATSAPP */
+
+/* ============================================================ */
+/* BLOCO 12 - ANIMAÇÕES DE ENTRADA (SCROLL REVEAL)              */
+/* ============================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* Fim bloco 12 - ANIMAÇÕES DE ENTRADA (SCROLL REVEAL) */
+
+/* ============================================================ */
+/* BLOCO 13 - RESPONSIVIDADE                                    */
+/* ============================================================ */
+@media (max-width: 992px) {
+  .hero__inner { grid-template-columns: 1fr; text-align: center; }
+  .hero__subtitle { margin-left: auto; margin-right: auto; }
+  .hero__actions, .hero__highlights { justify-content: center; }
+  .hero__visual { margin-top: 20px; }
+
+  .services__grid { grid-template-columns: 1fr 1fr; }
+  .about__inner { grid-template-columns: 1fr; gap: 40px; }
+  .about__visual { order: -1; }
+  .gallery__grid { grid-template-columns: 1fr; max-width: 520px; }
+  .gallery__item { height: 240px; }
+  .coverage__grid { grid-template-columns: 1fr 1fr; }
+  .contact__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .footer__inner { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  .section { padding: 65px 0; }
+
+  .logo__img { height: 44px; }
+
+  /* Menu mobile */
+  .hamburger { display: flex; }
+  .nav {
+    position: fixed;
+    top: 78px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 78px);
+    background: var(--branco);
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 40px 24px;
+    gap: 30px;
+    transform: translateX(100%);
+    transition: transform 0.35s ease;
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+  }
+  .nav.open { transform: translateX(0); }
+  .nav__list {
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+  }
+  .nav__link {
+    display: block;
+    padding: 16px 0;
+    border-bottom: 1px solid #eef1f6;
+    font-size: 1.1rem;
+  }
+  .nav__cta { width: 100%; }
+
+  .services__grid { grid-template-columns: 1fr; }
+  .coverage__grid { grid-template-columns: 1fr; }
+  .contact__grid { grid-template-columns: 1fr; max-width: 480px; }
+  .cta__inner { flex-direction: column; text-align: center; }
+  .footer__inner { grid-template-columns: 1fr; gap: 30px; }
+}
+
+@media (max-width: 480px) {
+  .container { padding: 0 18px; }
+  .gallery__item { height: 200px; }
+  .hero { padding: 130px 0 70px; }
+  .hero__actions { flex-direction: column; }
+  .hero__actions .btn { width: 100%; }
+  .whatsapp-float { width: 54px; height: 54px; bottom: 18px; right: 18px; }
+}
+/* Fim bloco 13 - RESPONSIVIDADE */
+
+/* ============================================================ */
+/* ÍNDICE                                                       */
+/* ============================================================ */
+/*
+1  VARIÁVEIS E RESET
+2  COMPONENTES (BOTÕES, TÍTULOS)
+3  CABEÇALHO / NAVEGAÇÃO
+4  HERO
+5  SERVIÇOS
+6  SOBRE
+6B GALERIA / NOSSA FROTA
+7  COBERTURA
+8  CTA
+9  CONTATO
+10 RODAPÉ
+11 BOTÃO FLUTUANTE WHATSAPP
+12 ANIMAÇÕES DE ENTRADA (SCROLL REVEAL)
+13 RESPONSIVIDADE
+*/
